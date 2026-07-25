@@ -201,5 +201,9 @@ const schema = {
     });
   }
 
+  // `astro:page-load` isn't guaranteed to have fired yet by the time this
+  // script runs (e.g. on the very first hard navigation), so bind
+  // immediately too. The `data-bound` guard above keeps both paths safe.
+  setup();
   document.addEventListener('astro:page-load', setup);
 </script>

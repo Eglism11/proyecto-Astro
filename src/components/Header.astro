@@ -135,20 +135,29 @@ const currentPath = Astro.url.pathname;
     const portalTrigger = document.querySelector('[data-portal-trigger]');
     const portalPanel = document.querySelector('[data-portal-panel]');
 
-    portalTrigger?.addEventListener('click', () => {
-      const isOpen = portalPanel?.classList.toggle('hidden') === false;
-      portalTrigger.setAttribute('aria-expanded', String(isOpen));
-    });
+    if (portalTrigger && !portalTrigger.hasAttribute('data-bound')) {
+      portalTrigger.setAttribute('data-bound', 'true');
+      portalTrigger.addEventListener('click', () => {
+        const isOpen = portalPanel?.classList.toggle('hidden') === false;
+        portalTrigger.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
 
     const mobileTrigger = document.querySelector('[data-mobile-trigger]');
     const mobilePanel = document.querySelector('[data-mobile-panel]');
-    mobileTrigger?.addEventListener('click', () => {
-      const isOpen = mobilePanel?.classList.toggle('hidden') === false;
-      mobileTrigger.setAttribute('aria-expanded', String(isOpen));
-    });
+    if (mobileTrigger && !mobileTrigger.hasAttribute('data-bound')) {
+      mobileTrigger.setAttribute('data-bound', 'true');
+      mobileTrigger.addEventListener('click', () => {
+        const isOpen = mobilePanel?.classList.toggle('hidden') === false;
+        mobileTrigger.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
   }
 
-  // Re-run after every navigation (initial load + each View Transitions swap).
+  // `astro:page-load` isn't guaranteed to have fired yet by the time this
+  // script runs (e.g. on the very first hard navigation), so bind
+  // immediately too. The `data-bound` guards above keep both paths safe.
+  setup();
   document.addEventListener('astro:page-load', setup);
 
   // Registered once: queries the live DOM on every click, so it stays correct

@@ -16,6 +16,18 @@ const schema = {
   name: `Nosotros | ${site.name}`,
   url: `${site.url}/nosotros/`,
   isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+  mainEntity: {
+    '@type': 'LegalService',
+    name: site.legalName,
+    url: site.url,
+    employee: team.map((member) => ({
+      '@type': 'Person',
+      name: member.name,
+      jobTitle: member.role,
+      description: member.bio,
+      ...(member.linkedin ? { sameAs: member.linkedin } : {}),
+    })),
+  },
 };
 ---
 

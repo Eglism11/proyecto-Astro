@@ -76,47 +76,62 @@ function splitName(name: string) {
         </article>
 
         <dialog id={dialogId} data-team-dialog class="team-dialog w-full max-w-3xl rounded-2xl bg-transparent p-0 backdrop:bg-ink-950/70">
-          <div class="relative overflow-hidden rounded-2xl bg-ink-50">
-            <svg
-              class="pointer-events-none absolute right-0 top-0 h-64 w-64 text-tuscany-200/70 sm:h-80 sm:w-80"
-              viewBox="0 0 200 200"
-              fill="none"
-              aria-hidden="true"
-            >
-              <g stroke="currentColor" stroke-width="1.5">
-                <path d="M150 0 C 100 40, 220 90, 150 140 S 60 210, 120 240" />
-                <path d="M170 -10 C 120 40, 230 100, 160 150 S 80 220, 130 250" />
-                <path d="M190 -20 C 140 40, 245 110, 175 165 S 100 235, 145 260" />
-                <path d="M130 10 C 90 50, 200 90, 140 135 S 45 200, 100 235" />
-              </g>
-            </svg>
+          <div class="relative grid overflow-hidden rounded-2xl bg-ink-50 md:max-h-[min(80vh,640px)] md:grid-cols-[280px_1fr]">
+            <div class="h-56 shrink-0 md:h-full">
+              {photo ? (
+                <Image
+                  src={photo}
+                  alt={`${member.name}, ${member.role} en Lawyer Company`}
+                  width={560}
+                  height={720}
+                  class="h-full w-full object-cover object-top"
+                />
+              ) : (
+                <div class="flex h-full w-full items-center justify-center bg-tuscany-100">
+                  <span class="font-display text-5xl font-semibold text-tuscany-500">{initials(member.name)}</span>
+                </div>
+              )}
+            </div>
 
-            <button
-              type="button"
-              data-team-close
-              aria-label="Cerrar"
-              class="absolute right-4 top-4 z-10 rounded-full bg-white/80 p-1.5 text-ink-600 shadow-sm transition-colors hover:bg-white hover:text-ink-900"
-            >
-              <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
-            </button>
+            <div class="relative overflow-y-auto p-6 sm:p-10">
+              <svg
+                class="pointer-events-none absolute right-0 top-0 h-48 w-48 text-tuscany-200/60"
+                viewBox="0 0 200 200"
+                fill="none"
+                aria-hidden="true"
+              >
+                <g stroke="currentColor" stroke-width="1.5">
+                  <path d="M150 0 C 100 40, 220 90, 150 140 S 60 210, 120 240" />
+                  <path d="M170 -10 C 120 40, 230 100, 160 150 S 80 220, 130 250" />
+                  <path d="M190 -20 C 140 40, 245 110, 175 165 S 100 235, 145 260" />
+                </g>
+              </svg>
 
-            <div class="relative grid gap-8 p-6 sm:p-10 md:grid-cols-2 md:items-center">
-              <div>
-                <h3 class="font-display text-4xl font-semibold leading-tight text-tuscany-600 sm:text-5xl">
+              <button
+                type="button"
+                data-team-close
+                aria-label="Cerrar"
+                class="absolute right-4 top-4 z-10 rounded-full bg-white/80 p-1.5 text-ink-600 shadow-sm transition-colors hover:bg-white hover:text-ink-900"
+              >
+                <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
+              </button>
+
+              <div class="relative pr-10">
+                <h3 class="font-display text-3xl font-semibold leading-tight text-tuscany-600 sm:text-4xl">
                   {splitName(member.name).first}
                 </h3>
                 {splitName(member.name).last && (
-                  <p class="font-display text-lg uppercase tracking-wide text-ink-800">
+                  <p class="font-display text-base uppercase tracking-wide text-ink-800">
                     {splitName(member.name).last}
                   </p>
                 )}
 
-                <div class="mt-6 flex items-center gap-3">
+                <div class="mt-5 flex items-center gap-3">
                   <span class="h-6 w-1 rounded-full bg-tuscany-500" />
                   <span class="text-sm font-semibold text-ink-800">{member.role}</span>
                 </div>
 
-                <div class="mt-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-wider text-ink-400">
+                <div class="mt-5 flex items-center gap-4 text-xs font-semibold uppercase tracking-wider text-ink-400">
                   <a href={member.linkedin ?? site.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-tuscany-600">
                     LinkedIn
                   </a>
@@ -130,22 +145,12 @@ function splitName(name: string) {
                     Asesoría
                   </a>
                 </div>
+
+                <p class="relative mt-6 text-sm leading-relaxed text-ink-600">
+                  {member.bio}
+                </p>
               </div>
-
-              <p class="relative text-sm leading-relaxed text-ink-600 md:border-l md:border-tuscany-200 md:pl-8">
-                {member.bio}
-              </p>
             </div>
-
-            {photo && (
-              <Image
-                src={photo}
-                alt={`${member.name}, ${member.role} en Lawyer Company`}
-                width={960}
-                height={540}
-                class="relative max-h-[50vh] w-full object-cover object-top"
-              />
-            )}
           </div>
         </dialog>
       </ScaleIn>
@@ -155,6 +160,9 @@ function splitName(name: string) {
 
 <style>
   dialog.team-dialog {
+    /* Tailwind's preflight resets margin to 0 on every element, which
+       breaks the native <dialog> centering (it relies on margin: auto). */
+    margin: auto;
     max-height: 90vh;
     overflow-y: auto;
   }
@@ -182,6 +190,9 @@ function splitName(name: string) {
 <script>
   function setup() {
     document.querySelectorAll('[data-team-trigger]').forEach((trigger) => {
+      if (trigger.hasAttribute('data-bound')) return;
+      trigger.setAttribute('data-bound', 'true');
+
       const targetId = trigger.getAttribute('data-team-trigger');
       const dialog = targetId ? document.getElementById(targetId) : null;
       if (!dialog || !(dialog instanceof HTMLDialogElement)) return;
@@ -196,5 +207,9 @@ function splitName(name: string) {
     });
   }
 
+  // `astro:page-load` isn't guaranteed to have fired yet by the time this
+  // script runs (e.g. on the very first hard navigation), so bind
+  // immediately too. The `data-bound` guard above keeps both paths safe.
+  setup();
   document.addEventListener('astro:page-load', setup);
 </script>

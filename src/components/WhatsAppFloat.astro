@@ -67,6 +67,8 @@ const chatHref = `${site.whatsapp}?text=${encodeURIComponent('Hola, quiero más 
     const chatLink = document.querySelector('[data-whatsapp-link]') as HTMLAnchorElement | null;
 
     if (!root || !trigger || !panel) return;
+    if (trigger.hasAttribute('data-bound')) return;
+    trigger.setAttribute('data-bound', 'true');
 
     let isOpen = false;
 
@@ -94,6 +96,10 @@ const chatHref = `${site.whatsapp}?text=${encodeURIComponent('Hola, quiero más 
     });
   }
 
+  // `astro:page-load` isn't guaranteed to have fired yet by the time this
+  // script runs (e.g. on the very first hard navigation), so bind
+  // immediately too. The `data-bound` guard above keeps both paths safe.
+  setup();
   document.addEventListener('astro:page-load', setup);
 
   document.addEventListener('click', (event) => {
