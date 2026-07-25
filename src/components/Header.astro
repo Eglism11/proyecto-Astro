@@ -5,7 +5,7 @@ import { nav, site } from '../lib/site';
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 border-b border-ink-700/60 bg-ink-900">
+<header class="sticky top-0 z-50 border-b border-ink-700/60 bg-ink-900" transition:animate="none">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
     <Logo />
 
@@ -132,20 +132,12 @@ const currentPath = Astro.url.pathname;
 
 <script>
   function setup() {
-    const portalMenu = document.querySelector('[data-portal-menu]');
-    const portalTrigger = portalMenu?.querySelector('[data-portal-trigger]');
-    const portalPanel = portalMenu?.querySelector('[data-portal-panel]');
+    const portalTrigger = document.querySelector('[data-portal-trigger]');
+    const portalPanel = document.querySelector('[data-portal-panel]');
 
     portalTrigger?.addEventListener('click', () => {
       const isOpen = portalPanel?.classList.toggle('hidden') === false;
       portalTrigger.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    document.addEventListener('click', (event) => {
-      if (portalMenu && !portalMenu.contains(event.target as Node)) {
-        portalPanel?.classList.add('hidden');
-        portalTrigger?.setAttribute('aria-expanded', 'false');
-      }
     });
 
     const mobileTrigger = document.querySelector('[data-mobile-trigger]');
@@ -156,5 +148,18 @@ const currentPath = Astro.url.pathname;
     });
   }
 
-  setup();
+  // Re-run after every navigation (initial load + each View Transitions swap).
+  document.addEventListener('astro:page-load', setup);
+
+  // Registered once: queries the live DOM on every click, so it stays correct
+  // across client-side navigations without leaking duplicate listeners.
+  document.addEventListener('click', (event) => {
+    const portalMenu = document.querySelector('[data-portal-menu]');
+    const portalPanel = portalMenu?.querySelector('[data-portal-panel]');
+    const portalTrigger = portalMenu?.querySelector('[data-portal-trigger]');
+    if (portalMenu && portalPanel && !portalPanel.classList.contains('hidden') && !portalMenu.contains(event.target as Node)) {
+      portalPanel.classList.add('hidden');
+      portalTrigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
 </script>

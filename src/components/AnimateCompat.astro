@@ -1,0 +1,67 @@
+{/*
+  AstroAnimate's own enhance scripts are `<script is:inline>` tags with no
+  `data-astro-rerun`, so Astro's View Transitions router treats them as
+  already-executed identical content and skips them on client-side
+  navigations after the first page load — the scroll-reveal elements are
+  left visible-but-unanimated (safe fallback, just not animated).
+
+  This shim re-runs on every `astro:page-load` (initial load + every
+  transition) and enhances any FadeInText / ScaleIn root that hasn't been
+  picked up yet, using the same attribute contract the library renders
+  (data-enhance, data-once, data-margin, data-ready, data-state).
+*/}
+<script is:inline data-astro-rerun>
+  (function () {
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function enhance(root) {
+      if (root.dataset.ready) return;
+
+      // Each component uses its own literal value for the "visible" state.
+      var visibleState = root.hasAttribute('data-astro-fade-in-text') ? 'animate' : 'visible';
+
+      root.dataset.ready = 'true';
+      root.dataset.state = 'hidden';
+
+      var isOnce = root.dataset.once !== 'false';
+      var margin = root.dataset.margin || '0px 0px -10% 0px';
+      var cleanupObserver;
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.target !== root) return;
+            if (entry.isIntersecting) {
+              root.dataset.state = visibleState;
+              if (isOnce) {
+                observer.unobserve(root);
+                observer.disconnect();
+                cleanupObserver && cleanupObserver.disconnect();
+              }
+            } else if (!isOnce) {
+              root.dataset.state = 'hidden';
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: margin }
+      );
+
+      observer.observe(root);
+
+      cleanupObserver = new MutationObserver(function () {
+        if (!document.contains(root)) {
+          observer.disconnect();
+          cleanupObserver.disconnect();
+        }
+      });
+      cleanupObserver.observe(document.body, { childList: true, subtree: true });
+    }
+
+    document
+      .querySelectorAll(
+        '[data-astro-fade-in-text][data-enhance="true"]:not([data-ready]), [data-astro-scale-in][data-enhance="true"]:not([data-ready])'
+      )
+      .forEach(enhance);
+  })();
+</script>
