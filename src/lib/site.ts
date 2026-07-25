@@ -36,6 +36,10 @@ export type TeamMember = {
   bio: string;
   image?: string;
   linkedin?: string;
+  /** Tailwind object-position utility for the crop. Defaults to
+   * object-center; only needed when the source photo isn't a
+   * face-centered environmental portrait (e.g. a full-body shot). */
+  imagePosition?: string;
 };
 
 export const team: TeamMember[] = [
@@ -76,6 +80,7 @@ export const team: TeamMember[] = [
     specialty: 'Derecho penal y procesal penal',
     bio: 'Litigante con amplia experiencia en estrategias defensivas en materia penal.',
     image: 'jorge-gutierrez',
+    imagePosition: 'object-[50%_18%]',
   },
 ];
 
@@ -84,6 +89,12 @@ export type PracticeArea = {
   title: string;
   summary: string;
   description: string;
+  /** Icon name from lucide-static (src/components/ui/icon). */
+  icon: string;
+  /** Categoría bajo la que se agrupa en /asesoria-juridica-integral/. Las
+   * dos entradas `isCategory: true` son las pestañas mismas, no áreas. */
+  category: 'litigio' | 'empresarial';
+  isCategory?: boolean;
 };
 
 export const practiceAreas: PracticeArea[] = [
@@ -93,6 +104,9 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Representación judicial con una estrategia diseñada para cada caso.',
     description:
       'Representación judicial con enfoque estratégico, construida a la medida de cada caso y con seguimiento cercano en cada etapa del proceso.',
+    icon: 'gavel',
+    category: 'litigio',
+    isCategory: true,
   },
   {
     slug: 'asesorias-estrategias-empresariales',
@@ -100,6 +114,9 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Orientación corporativa integral para empresas en crecimiento.',
     description:
       'Orientación corporativa integral para empresas: desde decisiones de gobierno interno hasta la estrategia legal detrás de cada operación del negocio.',
+    icon: 'briefcase',
+    category: 'empresarial',
+    isCategory: true,
   },
   {
     slug: 'derecho-constitucional',
@@ -107,6 +124,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Acciones constitucionales para proteger tus derechos fundamentales.',
     description:
       'Protegemos y reclamamos los derechos individuales y colectivos que fundamentan el Estado Social de Derecho, mediante acciones constitucionales ante vulneraciones o amenazas a derechos como la vida, la salud, la libertad, el debido proceso, el trabajo y la dignidad.',
+    icon: 'landmark',
+    category: 'litigio',
   },
   {
     slug: 'derecho-administrativo',
@@ -114,6 +133,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Representación ante entidades públicas y la jurisdicción contenciosa.',
     description:
       'Representación ante la Jurisdicción Contenciosa Administrativa, procesos disciplinarios ante la Procuraduría, responsabilidad fiscal ante la Contraloría, asesoría en contratación pública, demandas de responsabilidad civil del Estado y acciones de tutela.',
+    icon: 'scroll-text',
+    category: 'litigio',
   },
   {
     slug: 'derecho-civil-y-de-familia',
@@ -121,6 +142,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Acompañamiento en procesos civiles y de familia, con cercanía.',
     description:
       'Procesos civiles de pertenencia, responsabilidad civil contractual y extracontractual, liquidación de sociedades conyugales, regulación de alimentos, permisos de salida del país, custodia de menores, divorcios y testamentos.',
+    icon: 'scale',
+    category: 'litigio',
   },
   {
     slug: 'derecho-penal',
@@ -128,6 +151,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Defensa penal y representación de víctimas, disponible 24/7.',
     description:
       'Representación como defensores de confianza y representantes de víctimas, con estrategias jurídico-penales diseñadas para cada caso delictivo.',
+    icon: 'shield-alert',
+    category: 'litigio',
   },
   {
     slug: 'derecho-laboral',
@@ -135,6 +160,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Asesoría legal para empleadores y trabajadores.',
     description:
       'Representación de empleadores y trabajadores en litigios laborales, diseño de sistemas de seguridad y salud en el trabajo, liquidación de prestaciones sociales y gestión de conflictos colectivos.',
+    icon: 'users',
+    category: 'litigio',
   },
   {
     slug: 'derecho-ambiental',
@@ -142,6 +169,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Defensa corporativa y colectiva de la sostenibilidad ambiental.',
     description:
       'Asesoría corporativa y defensa de derechos colectivos e individuales relacionados con sostenibilidad ambiental, mediante litigio estratégico e incidencia administrativa.',
+    icon: 'leaf',
+    category: 'litigio',
   },
   {
     slug: 'derecho-comercial',
@@ -149,6 +178,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Del registro de tu empresa a la protección de tu marca.',
     description:
       'Acompañamiento desde la creación de tu empresa: protección de derechos de autor, registro de marcas, regulación interna, contratos comerciales, reformas estatutarias y disoluciones de sociedades.',
+    icon: 'circle-dollar-sign',
+    category: 'litigio',
   },
   {
     slug: 'responsabilidad-medica',
@@ -156,6 +187,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Defensa de profesionales de la salud y de sus pacientes.',
     description:
       'Representación de hospitales, clínicas y odontólogos, y defensa de los derechos de pacientes y familiares en casos de presunta mala praxis.',
+    icon: 'stethoscope',
+    category: 'litigio',
   },
   {
     slug: 'derecho-medico-veterinario',
@@ -163,6 +196,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Protección legal para mascotas, dueños y profesionales veterinarios.',
     description:
       'Protección de los intereses de mascotas y propietarios, y asesoría a profesionales veterinarios para reducir riesgos legales en su práctica.',
+    icon: 'paw-print',
+    category: 'litigio',
   },
   {
     slug: 'responsabilidad-civil',
@@ -170,6 +205,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Reclamaciones por accidentes, daños a terceros y aseguradoras.',
     description:
       'Cobertura de accidentes de tránsito, daños a terceros, responsabilidad del constructor, reclamaciones ante aseguradoras y responsabilidad por tenencia de animales.',
+    icon: 'file-signature',
+    category: 'litigio',
   },
   {
     slug: 'tramites-contravencionales',
@@ -177,6 +214,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Acompañamiento ante inspecciones de policía y tránsito.',
     description:
       'Representación ante inspecciones de policía y tránsito, con acompañamiento integral después de un accidente.',
+    icon: 'shield-check',
+    category: 'litigio',
   },
   {
     slug: 'conciliaciones-extrajudiciales',
@@ -184,6 +223,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Soluciones ágiles, sin necesidad de llegar a juicio.',
     description:
       'Alternativas ágiles a los procesos judiciales, con soluciones personalizadas para resolver conflictos fuera de los estrados.',
+    icon: 'handshake',
+    category: 'litigio',
   },
   {
     slug: 'constitucion-empresarial',
@@ -191,6 +232,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Formaliza tu empresa en Colombia y en el extranjero.',
     description:
       'Formalización de sociedades comerciales y entidades sin ánimo de lucro en Colombia, Estados Unidos, Panamá, Ecuador y México.',
+    icon: 'building-2',
+    category: 'empresarial',
   },
   {
     slug: 'registro-de-marca-y-propiedad-intelectual',
@@ -198,6 +241,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Protege tu marca, tus patentes y tu capital intelectual.',
     description:
       'Gestión de marcas, patentes y capital intelectual, con la seguridad jurídica que tu idea o tu negocio necesitan.',
+    icon: 'copyright',
+    category: 'empresarial',
   },
   {
     slug: 'auditoria-empresarial',
@@ -205,6 +250,8 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Diagnóstico legal, cumplimiento normativo y capacitación.',
     description:
       'Calificación y orientación de procesos jurídicos internos, cumplimiento normativo y capacitaciones a la medida de tu empresa.',
+    icon: 'clipboard-check',
+    category: 'empresarial',
   },
   {
     slug: 'derecho-de-los-negocios',
@@ -212,5 +259,7 @@ export const practiceAreas: PracticeArea[] = [
     summary: 'Gestión empresarial y derecho comercial, integrados.',
     description:
       'Integración de la gestión empresarial y el derecho comercial para que cada decisión de negocio tenga respaldo jurídico.',
+    icon: 'briefcase-business',
+    category: 'empresarial',
   },
 ];

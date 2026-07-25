@@ -81,7 +81,7 @@ function splitName(name: string) {
                 alt={`${member.name}, ${member.role} en Lawyer Company`}
                 width={480}
                 height={480}
-                class="h-56 w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                class={`h-56 w-full object-cover ${member.imagePosition ?? 'object-center'} transition-transform duration-500 group-hover:scale-105`}
               />
             ) : (
               <div class="flex h-56 w-full items-center justify-center bg-tuscany-100">
@@ -108,7 +108,7 @@ function splitName(name: string) {
                   alt={`${member.name}, ${member.role} en Lawyer Company`}
                   width={560}
                   height={720}
-                  class="h-full w-full object-cover object-center"
+                  class={`h-full w-full object-cover ${member.imagePosition ?? 'object-center'}`}
                 />
               ) : (
                 <div class="flex h-full w-full items-center justify-center bg-tuscany-100">

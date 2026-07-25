@@ -1,0 +1,171 @@
+---
+import { practiceAreas, site, type PracticeArea } from '../lib/site';
+import { Icon } from './ui/icon';
+import ScaleIn from '@astroanimate/core/ScaleIn';
+
+const categories = practiceAreas.filter((area) => area.isCategory);
+const areasByCategory = (category: PracticeArea['category']) =>
+  practiceAreas.filter((area) => !area.isCategory && area.category === category);
+
+function dialogId(slug: string) {
+  return `area-${slug}`;
+}
+
+function whatsappHref(area: PracticeArea) {
+  return `${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`;
+}
+---
+
+<div data-practice-tabs>
+  <div class="flex flex-col gap-3 sm:flex-row" role="tablist">
+    {categories.map((category, index) => (
+      <button
+        type="button"
+        data-tab-btn={category.category}
+        aria-selected={index === 0 ? 'true' : 'false'}
+        class="group flex flex-1 items-center gap-4 rounded-xl border border-tuscany-100 bg-white p-5 text-left transition-colors aria-selected:border-tuscany-500 aria-selected:bg-tuscany-50"
+      >
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-ink-900 text-white group-aria-selected:bg-tuscany-600">
+          <Icon name={category.icon} class="h-6 w-6" aria-hidden="true" />
+        </span>
+        <span class="font-display text-lg font-semibold text-ink-900">{category.title}</span>
+      </button>
+    ))}
+  </div>
+
+  {categories.map((category, index) => {
+    const items = areasByCategory(category.category);
+    return (
+      <div data-tab-panel={category.category} class={`mt-10 ${index === 0 ? '' : 'hidden'}`}>
+        <p class="max-w-3xl text-ink-500">{category.description}</p>
+        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((area, itemIndex) => (
+            <ScaleIn
+              enhance
+              initialScale={0.94}
+              delay={(itemIndex % 8) * 60}
+              margin="0px 0px -60px 0px"
+            >
+              <button
+                type="button"
+                data-area-trigger={dialogId(area.slug)}
+                class="flex h-full w-full flex-col items-center gap-4 rounded-xl border border-tuscany-100 bg-tuscany-50/60 p-6 text-center transition-colors hover:border-tuscany-300 hover:bg-white"
+              >
+                <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-ink-900 text-white">
+                  <Icon name={area.icon} class="h-7 w-7" aria-hidden="true" />
+                </span>
+                <span class="font-display text-base font-semibold text-ink-900">{area.title}</span>
+              </button>
+            </ScaleIn>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+
+  {practiceAreas.filter((area) => !area.isCategory).map((area) => (
+    <dialog id={dialogId(area.slug)} data-area-dialog class="area-dialog w-full max-w-2xl rounded-2xl bg-white p-0 backdrop:bg-ink-950/70">
+      <div class="relative p-6 sm:p-8">
+        <button
+          type="button"
+          data-area-close
+          aria-label="Cerrar"
+          class="absolute right-4 top-4 z-10 rounded-full bg-tuscany-50 p-1.5 text-ink-600 shadow-sm transition-colors hover:bg-tuscany-100 hover:text-ink-900"
+        >
+          <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
+        </button>
+
+        <div class="flex items-center gap-4 pr-10">
+          <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-tuscany-600 text-white">
+            <Icon name={area.icon} class="h-6 w-6" aria-hidden="true" />
+          </span>
+          <h3 class="font-display text-2xl font-semibold text-tuscany-600">{area.title}</h3>
+        </div>
+
+        <p class="mt-6 text-sm leading-relaxed text-ink-600 sm:columns-2 sm:gap-8">
+          {area.description}
+        </p>
+
+        <a
+          href={whatsappHref(area)}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-tuscany-600 hover:text-tuscany-700"
+        >
+          Asesórate con expertos
+          <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </dialog>
+  ))}
+</div>
+
+<style>
+  dialog.area-dialog {
+    /* Tailwind's preflight resets margin to 0, which breaks the native
+       <dialog> centering (it relies on margin: auto). */
+    margin: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  dialog.area-dialog::backdrop {
+    animation: area-dialog-fade 0.2s ease-out;
+  }
+
+  @keyframes area-dialog-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    dialog.area-dialog::backdrop {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function setup() {
+    document.querySelectorAll('[data-practice-tabs]').forEach((root) => {
+      if (root.hasAttribute('data-bound')) return;
+      root.setAttribute('data-bound', 'true');
+
+      root.querySelectorAll<HTMLButtonElement>('[data-tab-btn]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const category = btn.getAttribute('data-tab-btn');
+          root.querySelectorAll('[data-tab-btn]').forEach((b) => b.setAttribute('aria-selected', 'false'));
+          btn.setAttribute('aria-selected', 'true');
+          root.querySelectorAll('[data-tab-panel]').forEach((panel) => {
+            panel.classList.toggle('hidden', panel.getAttribute('data-tab-panel') !== category);
+          });
+        });
+      });
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-area-trigger]').forEach((trigger) => {
+      if (trigger.hasAttribute('data-bound')) return;
+      trigger.setAttribute('data-bound', 'true');
+
+      const targetId = trigger.getAttribute('data-area-trigger');
+      const dialog = targetId ? document.getElementById(targetId) : null;
+      if (!dialog || !(dialog instanceof HTMLDialogElement)) return;
+
+      trigger.addEventListener('click', () => dialog.showModal());
+      dialog.querySelector('[data-area-close]')?.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    });
+  }
+
+  // `astro:page-load` isn't guaranteed to have fired yet by the time this
+  // script runs (e.g. on the very first hard navigation), so bind
+  // immediately too. The `data-bound` guards above keep both paths safe.
+  setup();
+  document.addEventListener('astro:page-load', setup);
+</script>
