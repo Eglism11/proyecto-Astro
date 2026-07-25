@@ -37,7 +37,7 @@ Incluso cuando la ley no la exige, la conciliación puede ser la vía más intel
 
 - Existe una relación que quieres preservar (un vecino, un socio, un familiar).
 - El valor en disputa no justifica el costo y el tiempo de un litigio.
-- Ambas partes tienen interés real en resolver rápido, más que en "ganar" a toda costa.
+- Ambas partes tienen interés real en resolver rápido, más que en “ganar” a toda costa.
 
 ## Cómo prepararte para una audiencia de conciliación
 

@@ -12,7 +12,7 @@ En los hogares colombianos conviven millones de mascotas, y con esa cercanía ta
 
 El artículo 2353 del Código Civil establece que el dueño de un animal responde por los daños que este cause, incluso si el animal se había extraviado o soltado, salvo que se pruebe que el extravío o el daño ocurrió sin culpa del dueño o de quien lo tenía a su cuidado. En la práctica, esto significa que la ley presume la responsabilidad del propietario, y es él quien debe demostrar que actuó con la diligencia debida.
 
-Esta responsabilidad no depende de que el animal sea "agresivo" o de raza considerada peligrosa: aplica a cualquier mascota, desde un perro grande hasta un gato o un ave, siempre que cause un daño a un tercero.
+Esta responsabilidad no depende de que el animal sea “agresivo” o de raza considerada peligrosa: aplica a cualquier mascota, desde un perro grande hasta un gato o un ave, siempre que cause un daño a un tercero.
 
 ## ¿Qué tipo de daños cubre?
 

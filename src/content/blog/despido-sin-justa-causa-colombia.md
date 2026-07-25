@@ -22,7 +22,7 @@ El monto depende de dos factores: el tipo de contrato y el salario del trabajado
 
 Además de la indemnización, el empleador debe pagar la liquidación de prestaciones sociales causadas (cesantías, intereses a las cesantías, prima de servicios y vacaciones proporcionales), independientemente del tipo de despido.
 
-## Despidos que pueden ser algo más que "sin justa causa"
+## Despidos que pueden ser algo más que “sin justa causa”
 
 Hay situaciones en las que el despido no solo carece de justa causa, sino que además vulnera un derecho fundamental y puede ser objeto de una acción de tutela además de la reclamación laboral ordinaria:
 
@@ -38,7 +38,7 @@ En estos casos, la reclamación no se limita a la indemnización tarifada: puede
 1. **Solicita la carta de despido por escrito**, con la causal invocada por el empleador. Es tu principal prueba.
 2. **Reúne evidencia** de tu desempeño, incapacidades, fueros o cualquier circunstancia relevante (embarazo, sindicalización, condición de salud).
 3. **Verifica los términos**: en general tienes 3 años para reclamar prestaciones laborales, pero algunas acciones —como la tutela por estabilidad laboral reforzada— tienen términos mucho más cortos y conviene actuar rápido.
-4. **Busca asesoría antes de firmar cualquier documento** de liquidación o conciliación, especialmente si el empleador ofrece una suma "a cambio de no reclamar".
+4. **Busca asesoría antes de firmar cualquier documento** de liquidación o conciliación, especialmente si el empleador ofrece una suma “a cambio de no reclamar”.
 
 ## Nuestra recomendación
 
