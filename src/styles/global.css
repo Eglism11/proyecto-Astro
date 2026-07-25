@@ -45,6 +45,10 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Sitio de un solo tema (claro). Evita que el navegador aplique su
+       propio oscurecimiento automático sobre las secciones ya oscuras
+       (hero, header, footer) cuando el sistema está en modo oscuro. */
+    color-scheme: light;
   }
 
   body {

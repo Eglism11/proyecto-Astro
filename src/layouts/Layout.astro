@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import { site } from '../lib/site';
 import { ClientRouter } from 'astro:transitions';
 import AnimateCompat from '../components/AnimateCompat.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 
 interface Props {
   title: string;
@@ -27,6 +28,8 @@ const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#1a1510" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
@@ -68,6 +71,7 @@ const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
       <slot />
     </main>
     <Footer />
+    <WhatsAppFloat />
     <AnimateCompat />
   </body>
 </html>

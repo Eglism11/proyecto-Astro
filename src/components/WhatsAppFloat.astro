@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import qrImage from '../assets/images/site/whatsapp-qr.png';
+import { site } from '../lib/site';
+
+const chatHref = `${site.whatsapp}?text=${encodeURIComponent('Hola, quiero más información')}`;
+---
+
+<div class="fixed bottom-4 right-4 z-40 sm:bottom-6 sm:right-6" data-whatsapp-float>
+  <div
+    data-whatsapp-panel
+    class="absolute bottom-full right-0 mb-3 hidden w-[min(320px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-2xl"
+  >
+    <div class="flex items-center gap-2.5 bg-[#075E54] px-4 py-3">
+      <svg viewBox="0 0 32 32" class="h-6 w-6 shrink-0 fill-white" aria-hidden="true">
+        <path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.29.638 4.43 1.744 6.257L4 29l7.94-1.708A12.94 12.94 0 0016.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3zm7.53 18.36c-.32.9-1.58 1.66-2.58 1.87-.68.14-1.57.25-4.56-.98-3.83-1.58-6.3-5.44-6.49-5.7-.19-.26-1.56-2.08-1.56-3.97 0-1.89.99-2.82 1.34-3.2.35-.38.76-.48 1.02-.48.25 0 .5.003.72.014.23.01.54-.088.84.64.32.77 1.09 2.66 1.19 2.85.1.19.16.41.03.66-.13.25-.2.41-.4.63-.19.22-.41.5-.58.67-.19.19-.39.4-.17.78.22.38.99 1.63 2.12 2.64 1.46 1.3 2.68 1.71 3.06 1.9.38.19.6.16.82-.1.22-.25.94-1.1 1.19-1.48.25-.38.5-.31.84-.19.34.13 2.16 1.02 2.53 1.2.37.19.62.28.71.44.1.16.1.9-.21 1.8z"/>
+      </svg>
+      <span class="font-sans text-sm font-semibold text-white">WhatsApp</span>
+      <button
+        type="button"
+        data-whatsapp-close
+        aria-label="Cerrar"
+        class="ml-auto rounded-full p-1 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+      >
+        <svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
+      </button>
+    </div>
+
+    <div class="bg-[#ECE5DD] p-4">
+      <div class="rounded-2xl rounded-tl-sm bg-white px-3.5 py-2.5 text-sm leading-relaxed text-ink-700 shadow-sm">
+        <p>Hola 👋</p>
+        <p>¿En qué podemos ayudarte?</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center gap-2 bg-white px-4 py-5">
+      <Image src={qrImage} alt="Código QR para abrir el chat de WhatsApp" width={160} height={160} class="h-40 w-40" />
+      <p class="text-xs font-medium text-ink-400">Escanea el código</p>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    data-whatsapp-trigger
+    aria-expanded="false"
+    aria-haspopup="dialog"
+    class="flex items-center gap-2 rounded-full bg-ink-900 px-5 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-[1.03] hover:bg-ink-800"
+  >
+    <svg viewBox="0 0 32 32" class="h-5 w-5 shrink-0 fill-[#25D366]" aria-hidden="true">
+      <path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.29.638 4.43 1.744 6.257L4 29l7.94-1.708A12.94 12.94 0 0016.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3zm7.53 18.36c-.32.9-1.58 1.66-2.58 1.87-.68.14-1.57.25-4.56-.98-3.83-1.58-6.3-5.44-6.49-5.7-.19-.26-1.56-2.08-1.56-3.97 0-1.89.99-2.82 1.34-3.2.35-.38.76-.48 1.02-.48.25 0 .5.003.72.014.23.01.54-.088.84.64.32.77 1.09 2.66 1.19 2.85.1.19.16.41.03.66-.13.25-.2.41-.4.63-.19.22-.41.5-.58.67-.19.19-.39.4-.17.78.22.38.99 1.63 2.12 2.64 1.46 1.3 2.68 1.71 3.06 1.9.38.19.6.16.82-.1.22-.25.94-1.1 1.19-1.48.25-.38.5-.31.84-.19.34.13 2.16 1.02 2.53 1.2.37.19.62.28.71.44.1.16.1.9-.21 1.8z"/>
+    </svg>
+    Abrir chat
+    <svg viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 shrink-0" aria-hidden="true"><path d="M2 10a.75.75 0 01.75-.75h11.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H2.75A.75.75 0 012 10z"/></svg>
+  </button>
+</div>
+
+<a href={chatHref} target="_blank" rel="noopener noreferrer" class="sr-only" data-whatsapp-link>
+  Abrir chat de WhatsApp
+</a>
+
+<script>
+  function setup() {
+    const root = document.querySelector('[data-whatsapp-float]');
+    const trigger = root?.querySelector('[data-whatsapp-trigger]');
+    const panel = root?.querySelector('[data-whatsapp-panel]');
+    const closeBtn = root?.querySelector('[data-whatsapp-close]');
+    const chatLink = document.querySelector('[data-whatsapp-link]') as HTMLAnchorElement | null;
+
+    if (!root || !trigger || !panel) return;
+
+    let isOpen = false;
+
+    function setOpen(next: boolean) {
+      isOpen = next;
+      panel?.classList.toggle('hidden', !next);
+      trigger?.setAttribute('aria-expanded', String(next));
+    }
+
+    trigger.addEventListener('click', () => {
+      if (isOpen) {
+        setOpen(false);
+      } else if (window.innerWidth < 640) {
+        // En móvil el QR no aporta (no se puede escanear el propio teléfono):
+        // el botón abre el chat directo.
+        chatLink?.click();
+      } else {
+        setOpen(true);
+      }
+    });
+
+    closeBtn?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setOpen(false);
+    });
+  }
+
+  document.addEventListener('astro:page-load', setup);
+
+  document.addEventListener('click', (event) => {
+    const root = document.querySelector('[data-whatsapp-float]');
+    const panel = root?.querySelector('[data-whatsapp-panel]');
+    const trigger = root?.querySelector('[data-whatsapp-trigger]');
+    if (root && panel && !panel.classList.contains('hidden') && !root.contains(event.target as Node)) {
+      panel.classList.add('hidden');
+      trigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

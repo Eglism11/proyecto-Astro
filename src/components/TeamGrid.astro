@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { team, type TeamMember } from '../lib/site';
+import { team, site, type TeamMember } from '../lib/site';
 import ScaleIn from '@astroanimate/core/ScaleIn';
 
 interface Props {
@@ -27,34 +27,178 @@ function initials(name: string) {
     .map((part) => part[0])
     .join('');
 }
+
+function slugify(name: string) {
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-');
+}
+
+function splitName(name: string) {
+  const [first, ...rest] = name.split(' ');
+  return { first, last: rest.join(' ') };
+}
 ---
 
 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
   {members.map((member, index) => {
     const photo = getImage(member.image);
+    const dialogId = `team-${slugify(member.name)}`;
     return (
       <ScaleIn enhance initialScale={0.94} delay={(index % 6) * 70} margin="0px 0px -60px 0px">
-        <article class="overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm">
-          {photo ? (
-            <Image
-              src={photo}
-              alt={`${member.name}, ${member.role} en Lawyer Company`}
-              width={480}
-              height={480}
-              class="h-56 w-full object-cover object-top"
-            />
-          ) : (
-            <div class="flex h-56 w-full items-center justify-center bg-tuscany-100">
-              <span class="font-display text-4xl font-semibold text-tuscany-500">{initials(member.name)}</span>
-            </div>
-          )}
+        <article class="group overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm">
+          <div class="relative overflow-hidden">
+            {photo ? (
+              <Image
+                src={photo}
+                alt={`${member.name}, ${member.role} en Lawyer Company`}
+                width={480}
+                height={480}
+                class="h-56 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <div class="flex h-56 w-full items-center justify-center bg-tuscany-100">
+                <span class="font-display text-4xl font-semibold text-tuscany-500">{initials(member.name)}</span>
+              </div>
+            )}
+            <button
+              type="button"
+              data-team-trigger={dialogId}
+              class="absolute inset-x-3 bottom-3 flex items-center justify-center gap-1.5 rounded-md bg-ink-900/90 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm transition-all duration-300 sm:translate-y-2 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 sm:focus-visible:translate-y-0 sm:focus-visible:opacity-100"
+            >
+              Conócelo
+              <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
+            </button>
+          </div>
           <div class="p-5">
             <h3 class="font-display text-lg font-semibold text-ink-900">{member.name}</h3>
             <p class="mt-0.5 text-sm font-medium text-tuscany-600">{member.role}</p>
             <p class="mt-2 text-sm leading-relaxed text-ink-500">{member.bio}</p>
           </div>
         </article>
+
+        <dialog id={dialogId} data-team-dialog class="team-dialog w-full max-w-3xl rounded-2xl bg-transparent p-0 backdrop:bg-ink-950/70">
+          <div class="relative overflow-hidden rounded-2xl bg-ink-50">
+            <svg
+              class="pointer-events-none absolute right-0 top-0 h-64 w-64 text-tuscany-200/70 sm:h-80 sm:w-80"
+              viewBox="0 0 200 200"
+              fill="none"
+              aria-hidden="true"
+            >
+              <g stroke="currentColor" stroke-width="1.5">
+                <path d="M150 0 C 100 40, 220 90, 150 140 S 60 210, 120 240" />
+                <path d="M170 -10 C 120 40, 230 100, 160 150 S 80 220, 130 250" />
+                <path d="M190 -20 C 140 40, 245 110, 175 165 S 100 235, 145 260" />
+                <path d="M130 10 C 90 50, 200 90, 140 135 S 45 200, 100 235" />
+              </g>
+            </svg>
+
+            <button
+              type="button"
+              data-team-close
+              aria-label="Cerrar"
+              class="absolute right-4 top-4 z-10 rounded-full bg-white/80 p-1.5 text-ink-600 shadow-sm transition-colors hover:bg-white hover:text-ink-900"
+            >
+              <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
+            </button>
+
+            <div class="relative grid gap-8 p-6 sm:p-10 md:grid-cols-2 md:items-center">
+              <div>
+                <h3 class="font-display text-4xl font-semibold leading-tight text-tuscany-600 sm:text-5xl">
+                  {splitName(member.name).first}
+                </h3>
+                {splitName(member.name).last && (
+                  <p class="font-display text-lg uppercase tracking-wide text-ink-800">
+                    {splitName(member.name).last}
+                  </p>
+                )}
+
+                <div class="mt-6 flex items-center gap-3">
+                  <span class="h-6 w-1 rounded-full bg-tuscany-500" />
+                  <span class="text-sm font-semibold text-ink-800">{member.role}</span>
+                </div>
+
+                <div class="mt-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-wider text-ink-400">
+                  <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-tuscany-600">
+                    LinkedIn
+                  </a>
+                  <span aria-hidden="true">|</span>
+                  <a
+                    href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría con ${member.name.split(' ')[0]}.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-tuscany-600"
+                  >
+                    Asesoría
+                  </a>
+                </div>
+              </div>
+
+              <p class="relative text-sm leading-relaxed text-ink-600 md:border-l md:border-tuscany-200 md:pl-8">
+                {member.bio}
+              </p>
+            </div>
+
+            {photo && (
+              <Image
+                src={photo}
+                alt={`${member.name}, ${member.role} en Lawyer Company`}
+                width={960}
+                height={540}
+                class="relative max-h-[50vh] w-full object-cover object-top"
+              />
+            )}
+          </div>
+        </dialog>
       </ScaleIn>
     );
   })}
 </div>
+
+<style>
+  dialog.team-dialog {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  dialog.team-dialog::backdrop {
+    animation: team-dialog-fade 0.2s ease-out;
+  }
+
+  @keyframes team-dialog-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    dialog.team-dialog::backdrop {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function setup() {
+    document.querySelectorAll('[data-team-trigger]').forEach((trigger) => {
+      const targetId = trigger.getAttribute('data-team-trigger');
+      const dialog = targetId ? document.getElementById(targetId) : null;
+      if (!dialog || !(dialog instanceof HTMLDialogElement)) return;
+
+      trigger.addEventListener('click', () => dialog.showModal());
+
+      dialog.querySelector('[data-team-close]')?.addEventListener('click', () => dialog.close());
+
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setup);
+</script>
