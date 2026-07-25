@@ -22,6 +22,7 @@ export const site = {
 } as const;
 
 export const nav = [
+  { label: 'Inicio', href: '/' },
   { label: 'Nosotros', href: '/nosotros/' },
   { label: 'Asesoría Jurídica Integral', href: '/asesoria-juridica-integral/' },
   { label: 'Blog', href: '/blog/' },
