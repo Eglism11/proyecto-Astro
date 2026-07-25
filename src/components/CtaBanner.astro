@@ -1,0 +1,35 @@
+---
+import Button from './Button.astro';
+import { site } from '../lib/site';
+import FadeInText from '@astroanimate/core/FadeInText';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '¿Necesitas asesoría jurídica ahora?',
+  description = 'Cuéntanos tu caso y un abogado especialista te contactará para orientarte en los próximos pasos.',
+} = Astro.props;
+---
+
+<section class="bg-ink-900">
+  <FadeInText as="div" enhance class="mx-auto max-w-5xl px-4 py-16 text-center md:px-8">
+    <h2 class="font-display text-3xl font-semibold text-white sm:text-4xl">{title}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-ink-200">{description}</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <Button
+        href={`${site.whatsapp}?text=${encodeURIComponent('Hola, quiero asesoría jurídica.')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        variant="primary"
+      >
+        Asesórate con expertos
+      </Button>
+      <Button href="/contacto-y-pqrs/" variant="outline-light">
+        Ver formulario de contacto
+      </Button>
+    </div>
+  </FadeInText>
+</section>

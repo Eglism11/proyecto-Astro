@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site } from '../lib/site';
+---
+
+<Layout
+  title="Política de privacidad | Lawyer Company Abogados"
+  description="Política de tratamiento de datos personales de Lawyer Company Abogados, conforme a la Ley 1581 de 2012 (Habeas Data) de Colombia."
+  noIndex={true}
+>
+  <PageHeader eyebrow="Legal" title="Política de privacidad" />
+
+  <section class="prose mx-auto max-w-3xl px-4 py-16 prose-headings:font-display md:px-8">
+    <p>
+      En {site.legalName} tratamos tus datos personales conforme a la Ley Estatutaria 1581 de 2012
+      y el Decreto 1377 de 2013, que regulan la protección de datos personales en Colombia
+      (Habeas Data).
+    </p>
+
+    <h2>Responsable del tratamiento</h2>
+    <p>
+      {site.legalName}, con oficinas en {site.address}, correo de contacto{' '}
+      <a href={`mailto:${site.email}`}>{site.email}</a> y teléfono {site.phoneDisplay}.
+    </p>
+
+    <h2>Datos que recolectamos</h2>
+    <p>
+      A través de nuestros formularios de contacto y PQRS recolectamos nombre, correo
+      electrónico, número telefónico y el contenido del mensaje que nos envías.
+    </p>
+
+    <h2>Finalidad del tratamiento</h2>
+    <ul>
+      <li>Responder tus solicitudes de información o asesoría jurídica.</li>
+      <li>Dar trámite a peticiones, quejas, reclamos o sugerencias (PQRS).</li>
+      <li>Contactarte respecto al estado de un proceso o cita agendada.</li>
+    </ul>
+
+    <h2>Tus derechos</h2>
+    <p>
+      Como titular de tus datos, puedes conocer, actualizar, rectificar o solicitar la supresión
+      de tu información, así como revocar la autorización otorgada, escribiendo a{' '}
+      <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+
+    <h2>Vigencia</h2>
+    <p>
+      Esta política aplica desde su publicación y podrá actualizarse para reflejar cambios en
+      nuestras prácticas de tratamiento de datos o en la normativa vigente.
+    </p>
+  </section>
+</Layout>

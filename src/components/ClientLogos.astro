@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import InfiniteMarquee from '@astroanimate/core/InfiniteMarquee';
+
+const logoModules = import.meta.glob<import('astro').ImageMetadata>(
+  '../assets/images/clients/*.png',
+  { eager: true, import: 'default' }
+);
+
+function labelFromPath(path: string) {
+  const file = path.split('/').pop() ?? '';
+  const base = file.replace(/\.[^.]+$/, '');
+  return base
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+const logos = Object.entries(logoModules).map(([path, image]) => ({
+  image,
+  label: labelFromPath(path),
+}));
+---
+
+<section class="border-y border-tuscany-100 bg-white py-12">
+  <div class="mx-auto max-w-7xl px-4 md:px-8">
+    <p class="text-center text-sm font-semibold uppercase tracking-wider text-ink-400">
+      Empresas que confían en nuestra asesoría
+    </p>
+    <div class="mt-8">
+      <InfiniteMarquee direction="left" speed="38s" gap="3.5rem">
+        {logos.map(({ image, label }) => (
+          <div class="flex w-[140px] items-center justify-center">
+            <Image
+              src={image}
+              alt={label}
+              width={140}
+              height={70}
+              class="max-h-12 w-auto object-contain opacity-70 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+            />
+          </div>
+        ))}
+      </InfiniteMarquee>
+    </div>
+  </div>
+</section>

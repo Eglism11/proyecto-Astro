@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../../lib/site';
+import ScaleIn from '@astroanimate/core/ScaleIn';
+import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const formatter = new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: `Blog de ${site.name}`,
+  url: `${site.url}/blog/`,
+};
+---
+
+<Layout
+  title="Blog jurídico | Lawyer Company Abogados"
+  description="Artículos sobre derecho laboral, civil, penal y empresarial en Colombia, escritos por el equipo de abogados de Lawyer Company."
+  schema={schema}
+>
+  <PageHeader
+    eyebrow="Blog"
+    title="Blog jurídico"
+    description="Artículos y noticias sobre las áreas del derecho que más consultan nuestros clientes en Colombia."
+  />
+
+  <section class="mx-auto max-w-5xl px-4 py-16 md:px-8 md:py-20">
+    {posts.length === 0 ? (
+      <p class="text-center text-ink-500">Muy pronto publicaremos nuevos artículos.</p>
+    ) : (
+      <div class="grid gap-8 sm:grid-cols-2">
+        {posts.map((post, index) => (
+          <ScaleIn enhance initialScale={0.95} delay={(index % 4) * 80} margin="0px 0px -60px 0px">
+            <article class="flex h-full flex-col overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm transition-shadow hover:shadow-md">
+              <div class="flex flex-1 flex-col p-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-tuscany-600">
+                  <span class="rounded-full bg-tuscany-100 px-2.5 py-1">{post.data.category}</span>
+                  <time datetime={post.data.pubDate.toISOString()} class="text-ink-400">
+                    {formatter.format(post.data.pubDate)}
+                  </time>
+                </div>
+                <h2 class="mt-3 font-display text-xl font-semibold text-ink-900">
+                  <a href={`/blog/${post.id}/`} class="hover:text-tuscany-600">{post.data.title}</a>
+                </h2>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-500">{post.data.description}</p>
+                <ArrowCTAButton as="a" href={`/blog/${post.id}/`} label="Leer artículo" class="!text-tuscany-600 mt-4" />
+              </div>
+            </article>
+          </ScaleIn>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>

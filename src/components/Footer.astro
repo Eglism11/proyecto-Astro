@@ -1,0 +1,78 @@
+---
+import Logo from './Logo.astro';
+import { nav, site, practiceAreas } from '../lib/site';
+
+const year = new Date().getFullYear();
+const footerPractices = practiceAreas.slice(0, 6);
+---
+
+<footer class="bg-ink-950 text-ink-200">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
+    <div class="md:col-span-1">
+      <Logo />
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-ink-300">
+        Más de 15 años de trayectoria en litigio estratégico y asesoría jurídica integral para
+        personas y empresas en Colombia.
+      </p>
+      <div class="mt-5 flex gap-3">
+        <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="rounded-full border border-ink-700 p-2 text-ink-300 transition-colors hover:border-tuscany-500 hover:text-tuscany-300">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M13.5 21v-7.5h2.5l.5-3H13.5V8.5c0-.9.25-1.5 1.53-1.5H16.5V4.3c-.27-.04-1.2-.12-2.28-.12-2.26 0-3.8 1.38-3.8 3.92V10.5H8v3h2.42V21h3.08z"/></svg>
+        </a>
+        <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="rounded-full border border-ink-700 p-2 text-ink-300 transition-colors hover:border-tuscany-500 hover:text-tuscany-300">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M6.94 8.5H4.06V20h2.88V8.5zM5.5 4a1.67 1.67 0 100 3.34A1.67 1.67 0 005.5 4zM20 13.28c0-3.1-1.66-4.54-3.87-4.54-1.78 0-2.58 1-3.02 1.68V8.5H10.2c.04.86 0 9.5 0 9.5h2.9v-5.3c0-.28.02-.57.1-.77.23-.57.75-1.16 1.62-1.16 1.14 0 1.6.87 1.6 2.14V20H20v-6.72z"/></svg>
+        </a>
+        <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="rounded-full border border-ink-700 p-2 text-ink-300 transition-colors hover:border-tuscany-500 hover:text-tuscany-300">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M12 8.2a3.8 3.8 0 100 7.6 3.8 3.8 0 000-7.6zm0 6.27a2.47 2.47 0 110-4.94 2.47 2.47 0 010 4.94zM16.9 4H7.1A3.1 3.1 0 004 7.1v9.8A3.1 3.1 0 007.1 20h9.8a3.1 3.1 0 003.1-3.1V7.1A3.1 3.1 0 0016.9 4zm1.85 12.9a1.85 1.85 0 01-1.85 1.85H7.1a1.85 1.85 0 01-1.85-1.85V7.1A1.85 1.85 0 017.1 5.25h9.8a1.85 1.85 0 011.85 1.85v9.8zM16.65 7.03a.9.9 0 100 1.8.9.9 0 000-1.8z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <nav aria-label="Enlaces del sitio">
+      <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white">Sitio</h3>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {nav.map((item) => (
+          <li><a href={item.href} class="text-ink-300 transition-colors hover:text-tuscany-300">{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav aria-label="Áreas de práctica">
+      <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white">Áreas de práctica</h3>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {footerPractices.map((area) => (
+          <li>
+            <a href={`/asesoria-juridica-integral/#${area.slug}`} class="text-ink-300 transition-colors hover:text-tuscany-300">
+              {area.title}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a href="/asesoria-juridica-integral/" class="font-medium text-tuscany-300 hover:text-tuscany-200">
+            Ver todas las áreas →
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div>
+      <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white">Contacto</h3>
+      <ul class="mt-4 space-y-3 text-sm text-ink-300">
+        <li>{site.address}</li>
+        <li>
+          <a href={`tel:${site.phoneHref}`} class="hover:text-tuscany-300">{site.phoneDisplay}</a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`} class="hover:text-tuscany-300">{site.email}</a>
+        </li>
+        <li class="text-ink-400">{site.hoursNote}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-ink-800">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-ink-400 md:flex-row md:items-center md:justify-between md:px-8">
+      <p>© {year} {site.legalName}. Todos los derechos reservados.</p>
+      <a href="/politica-de-privacidad/" class="hover:text-tuscany-300">Política de privacidad</a>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import { team, type TeamMember } from '../lib/site';
+import ScaleIn from '@astroanimate/core/ScaleIn';
+
+interface Props {
+  members?: TeamMember[];
+}
+
+const { members = team } = Astro.props;
+
+const images = import.meta.glob<import('astro').ImageMetadata>(
+  '../assets/images/team/*.jpg',
+  { eager: true, import: 'default' }
+);
+
+function getImage(key?: string) {
+  if (!key) return null;
+  const match = Object.entries(images).find(([path]) => path.includes(`/${key}.jpg`));
+  return match?.[1] ?? null;
+}
+
+function initials(name: string) {
+  return name
+    .split(' ')
+    .filter((_, i, arr) => i === 0 || i === arr.length - 1)
+    .map((part) => part[0])
+    .join('');
+}
+---
+
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {members.map((member, index) => {
+    const photo = getImage(member.image);
+    return (
+      <ScaleIn enhance initialScale={0.94} delay={(index % 6) * 70} margin="0px 0px -60px 0px">
+        <article class="overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm">
+          {photo ? (
+            <Image
+              src={photo}
+              alt={`${member.name}, ${member.role} en Lawyer Company`}
+              width={480}
+              height={480}
+              class="h-56 w-full object-cover object-top"
+            />
+          ) : (
+            <div class="flex h-56 w-full items-center justify-center bg-tuscany-100">
+              <span class="font-display text-4xl font-semibold text-tuscany-500">{initials(member.name)}</span>
+            </div>
+          )}
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-ink-900">{member.name}</h3>
+            <p class="mt-0.5 text-sm font-medium text-tuscany-600">{member.role}</p>
+            <p class="mt-2 text-sm leading-relaxed text-ink-500">{member.bio}</p>
+          </div>
+        </article>
+      </ScaleIn>
+    );
+  })}
+</div>

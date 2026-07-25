@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ClientLogos from '../components/ClientLogos.astro';
+import PracticeAreasGrid from '../components/PracticeAreasGrid.astro';
+import TeamGrid from '../components/TeamGrid.astro';
+import Values from '../components/Values.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { practiceAreas, team, site } from '../lib/site';
+import FadeInText from '@astroanimate/core/FadeInText';
+import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
+
+const featuredAreas = practiceAreas.slice(0, 6);
+const featuredTeam = team.slice(0, 3);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: site.legalName,
+  url: site.url,
+  telephone: site.phoneHref,
+  email: site.email,
+  image: `${site.url}/og-default.jpg`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Llano Grande, Ciudadela Complex, Edificio 60-61, oficina 201',
+    addressLocality: 'Rionegro',
+    addressRegion: 'Antioquia',
+    addressCountry: 'CO',
+  },
+  areaServed: 'CO',
+  priceRange: '$$',
+  sameAs: [site.social.facebook, site.social.linkedin, site.social.instagram],
+};
+---
+
+<Layout
+  title="Abogados en Rionegro y Colombia | Lawyer Company"
+  description="Asesoría jurídica integral y litigio estratégico en derecho penal, laboral, civil, administrativo y empresarial. Más de 15 años de experiencia en Rionegro, Antioquia."
+  schema={schema}
+>
+  <Hero />
+
+  <ClientLogos />
+
+  <section class="mx-auto max-w-7xl px-4 py-20 md:px-8">
+    <FadeInText as="div" enhance class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-tuscany-600">Qué hacemos</p>
+      <h2 class="mt-2 font-display text-3xl font-semibold text-ink-900 sm:text-4xl">
+        Asesoría jurídica integral, pensada para cada caso
+      </h2>
+      <p class="mt-4 text-ink-500">
+        Litigio estratégico y acompañamiento legal en las áreas del derecho que más impactan a
+        personas y empresas en Colombia.
+      </p>
+    </FadeInText>
+    <div class="mt-12">
+      <PracticeAreasGrid areas={featuredAreas} compact showLinkToAll />
+    </div>
+  </section>
+
+  <section class="bg-tuscany-50 py-20">
+    <div class="mx-auto max-w-7xl px-4 md:px-8">
+      <FadeInText as="div" enhance class="mx-auto max-w-2xl text-center">
+        <p class="text-sm font-semibold uppercase tracking-wider text-tuscany-600">Nuestros principios</p>
+        <h2 class="mt-2 font-display text-3xl font-semibold text-ink-900 sm:text-4xl">
+          Lo que guía cada asesoría
+        </h2>
+      </FadeInText>
+      <div class="mt-12">
+        <Values />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-20 md:px-8">
+    <FadeInText as="div" enhance class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-tuscany-600">Nuestro equipo</p>
+      <h2 class="mt-2 font-display text-3xl font-semibold text-ink-900 sm:text-4xl">
+        Abogados especialistas, no generalistas
+      </h2>
+      <p class="mt-4 text-ink-500">
+        Once abogados adscritos con formación de posgrado y experiencia real en litigio.
+      </p>
+    </FadeInText>
+    <div class="mt-12">
+      <TeamGrid members={featuredTeam} />
+    </div>
+    <div class="mt-8 text-center">
+      <ArrowCTAButton as="a" href="/nosotros/" label="Conoce a todo el equipo" class="!text-tuscany-600 justify-center" />
+    </div>
+  </section>
+
+  <CtaBanner />
+</Layout>

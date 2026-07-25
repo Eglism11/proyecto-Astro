@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import logoFull from '../assets/images/site/logo-full.png';
+import { site } from '../lib/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<a href="/" class={`flex items-center ${className}`} aria-label={`${site.name} — Inicio`}>
+  <Image
+    src={logoFull}
+    alt={site.legalName}
+    width={184}
+    height={98}
+    class="h-11 w-auto object-contain"
+    loading="eager"
+  />
+</a>

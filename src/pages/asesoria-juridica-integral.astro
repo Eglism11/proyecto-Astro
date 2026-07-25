@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PracticeAreasGrid from '../components/PracticeAreasGrid.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { practiceAreas, site } from '../lib/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Asesoría jurídica integral',
+  provider: {
+    '@type': 'LegalService',
+    name: site.legalName,
+    url: site.url,
+  },
+  areaServed: 'CO',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Áreas de práctica legal',
+    itemListElement: practiceAreas.map((area) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: area.title,
+        description: area.description,
+      },
+    })),
+  },
+};
+---
+
+<Layout
+  title="Asesoría Jurídica Integral | Lawyer Company Abogados"
+  description="18 áreas del derecho en una sola firma: penal, laboral, civil, administrativo, comercial y más. Asesoría jurídica integral y litigio estratégico en Colombia."
+  schema={schema}
+>
+  <PageHeader
+    eyebrow="Servicios"
+    title="Asesoría Jurídica Integral"
+    description="Contar con asesoría jurídica integral y confiable es fundamental. Por eso reunimos 18 áreas del derecho en un solo equipo, para que no tengas que buscar un abogado distinto por cada problema."
+  />
+
+  <section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <PracticeAreasGrid areas={practiceAreas} />
+  </section>
+
+  <CtaBanner
+    title="¿No sabes qué área necesitas?"
+    description="Cuéntanos qué te pasa, en palabras simples. Nosotros identificamos el área del derecho y el abogado especialista que debe atender tu caso."
+  />
+</Layout>

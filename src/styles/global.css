@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/500.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+@theme {
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Tuscany — paleta de marca (terracota) */
+  --color-tuscany-50: #faf5f0;
+  --color-tuscany-100: #f1e4d4;
+  --color-tuscany-200: #e1c6a6;
+  --color-tuscany-300: #d2a577;
+  --color-tuscany-400: #c78b58;
+  --color-tuscany-500: #bb6e42;
+  --color-tuscany-600: #a65739;
+  --color-tuscany-700: #8b4132;
+  --color-tuscany-800: #72362e;
+  --color-tuscany-900: #5f2d28;
+  --color-tuscany-950: #351613;
+
+  /* Ink — neutros cálidos para texto y fondos oscuros */
+  --color-ink-50: #faf9f7;
+  --color-ink-100: #f0ede9;
+  --color-ink-200: #ded7cf;
+  --color-ink-300: #b8ac9f;
+  --color-ink-400: #8c7d6e;
+  --color-ink-500: #665a4d;
+  --color-ink-600: #4a4038;
+  --color-ink-700: #362e28;
+  --color-ink-800: #262019;
+  --color-ink-900: #1a1510;
+  --color-ink-950: #100c09;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-tuscany-50);
+    color: var(--color-ink-800);
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-tuscany-600);
+    outline-offset: 2px;
+  }
+}

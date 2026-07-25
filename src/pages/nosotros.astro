@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Values from '../components/Values.astro';
+import TeamGrid from '../components/TeamGrid.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { Image } from 'astro:assets';
+import salaJuntas from '../assets/images/site/equipo-sala-juntas.jpg';
+import { site, team } from '../lib/site';
+import FadeInText from '@astroanimate/core/FadeInText';
+import ScaleIn from '@astroanimate/core/ScaleIn';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `Nosotros | ${site.name}`,
+  url: `${site.url}/nosotros/`,
+  isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+};
+---
+
+<Layout
+  title="Nosotros | Lawyer Company Abogados en Rionegro"
+  description="Conoce a Lawyer Company: más de 15 años de experiencia, once abogados especialistas y un modelo de asesoría jurídica integral en Rionegro, Antioquia."
+  schema={schema}
+>
+  <PageHeader
+    eyebrow="Nosotros"
+    title="Tu socio legal de confianza"
+    description="Un equipo de profesionales con sólida formación académica y experiencia real en litigio, asesoría empresarial, docencia e investigación jurídica."
+  />
+
+  <section class="mx-auto grid max-w-7xl gap-12 px-4 py-20 md:grid-cols-2 md:px-8 md:py-24">
+    <FadeInText as="div" enhance>
+      <p class="text-sm font-semibold uppercase tracking-wider text-tuscany-600">Nuestra trayectoria</p>
+      <h2 class="mt-2 font-display text-3xl font-semibold text-ink-900">
+        Más de 15 años acompañando decisiones legales importantes
+      </h2>
+      <p class="mt-5 text-ink-500 leading-relaxed">
+        En Lawyer Company somos un equipo de profesionales con más de 15 años de experiencia
+        acumulada en el desempeño profesional y legal. Esa trayectoria nos da el criterio y el
+        conocimiento para acompañarte en tus requerimientos jurídicos y administrativos, ya seas
+        una persona natural o una empresa.
+      </p>
+      <p class="mt-4 text-ink-500 leading-relaxed">
+        Nuestros abogados combinan práctica judicial activa con docencia universitaria e
+        investigación, lo que nos permite construir estrategias legales actualizadas y sólidas
+        para cada caso, desde el litigio estratégico hasta la asesoría empresarial permanente.
+      </p>
+      <ul class="mt-8 space-y-4">
+        <li class="flex gap-3">
+          <span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-tuscany-500"></span>
+          <div>
+            <p class="font-semibold text-ink-800">Innovación en procesos y tecnología</p>
+            <p class="text-sm text-ink-500">Herramientas y procesos que agilizan el seguimiento de tu caso.</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-tuscany-500"></span>
+          <div>
+            <p class="font-semibold text-ink-800">Liderazgo regional con modelo jurídico integral</p>
+            <p class="text-sm text-ink-500">Una sola firma para cubrir las distintas áreas del derecho que tu situación requiere.</p>
+          </div>
+        </li>
+        <li class="flex gap-3">
+          <span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-tuscany-500"></span>
+          <div>
+            <p class="font-semibold text-ink-800">Agilidad en la respuesta y resolución de conflictos</p>
+            <p class="text-sm text-ink-500">Acompañamiento cercano en cada etapa, sin dejarte sin respuesta.</p>
+          </div>
+        </li>
+      </ul>
+    </FadeInText>
+    <ScaleIn enhance initialScale={0.96} margin="0px 0px -80px 0px">
+      <Image
+        src={salaJuntas}
+        alt="Equipo de abogados de Lawyer Company en sala de juntas"
+        class="h-full w-full rounded-2xl object-cover"
+        widths={[400, 700, 980]}
+        sizes="(min-width: 768px) 40vw, 90vw"
+      />
+    </ScaleIn>
+  </section>
+
+  <section class="bg-tuscany-50 py-20 md:py-24">
+    <div class="mx-auto max-w-7xl px-4 md:px-8">
+      <FadeInText as="div" enhance class="mx-auto max-w-2xl text-center">
+        <p class="text-sm font-semibold uppercase tracking-wider text-tuscany-600">Nuestros valores</p>
+        <h2 class="mt-2 font-display text-3xl font-semibold text-ink-900 sm:text-4xl">
+          Los principios detrás de cada asesoría
+        </h2>
+      </FadeInText>
+      <div class="mt-12">
+        <Values />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-24">
+    <FadeInText as="div" enhance class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-tuscany-600">Equipo</p>
+      <h2 class="mt-2 font-display text-3xl font-semibold text-ink-900 sm:text-4xl">
+        Once abogados especialistas, una sola firma
+      </h2>
+      <p class="mt-4 text-ink-500">
+        Cada integrante de nuestro equipo tiene una especialidad definida, para que tu caso quede
+        en manos de quien realmente lo domina.
+      </p>
+    </FadeInText>
+    <div class="mt-12">
+      <TeamGrid members={team} />
+    </div>
+  </section>
+
+  <CtaBanner
+    title="¿Quieres trabajar con nuestro equipo?"
+    description="Cuéntanos tu situación y te diremos qué abogado especialista puede ayudarte."
+  />
+</Layout>
