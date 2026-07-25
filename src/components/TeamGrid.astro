@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { team, site, type TeamMember } from '../lib/site';
 import ScaleIn from '@astroanimate/core/ScaleIn';
 import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
+import CarouselNav from './CarouselNav.astro';
 
 interface Props {
   members?: TeamMember[];
@@ -44,7 +45,9 @@ function splitName(name: string) {
 }
 ---
 
+<div {...(carousel ? { 'data-carousel': true } : {})}>
 <div
+  {...(carousel ? { 'data-carousel-track': true } : {})}
   class={
     carousel
       ? '-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3'
@@ -169,6 +172,8 @@ function splitName(name: string) {
       </ScaleIn>
     );
   })}
+</div>
+{carousel && <CarouselNav />}
 </div>
 
 <style>

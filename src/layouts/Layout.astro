@@ -6,6 +6,7 @@ import { site } from '../lib/site';
 import { ClientRouter } from 'astro:transitions';
 import AnimateCompat from '../components/AnimateCompat.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import CarouselScript from '../components/CarouselScript.astro';
 
 interface Props {
   title: string;
@@ -73,5 +74,6 @@ const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <Footer />
     <WhatsAppFloat />
     <AnimateCompat />
+    <CarouselScript />
   </body>
 </html>

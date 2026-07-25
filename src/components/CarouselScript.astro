@@ -1,0 +1,48 @@
+{/*
+  Wires up every [data-carousel] on the page: finds its
+  [data-carousel-track] scroll container and prev/next buttons, scrolls
+  by roughly one card per click, and disables a button when the track
+  is already at that edge.
+*/}
+<script>
+  function setupCarousel(root: Element) {
+    if (root.hasAttribute('data-bound')) return;
+    root.setAttribute('data-bound', 'true');
+
+    const track = root.querySelector('[data-carousel-track]') as HTMLElement | null;
+    const prevBtn = root.querySelector('[data-carousel-prev]') as HTMLButtonElement | null;
+    const nextBtn = root.querySelector('[data-carousel-next]') as HTMLButtonElement | null;
+    if (!track || !prevBtn || !nextBtn) return;
+
+    function cardStep() {
+      const card = track?.children[0] as HTMLElement | undefined;
+      return card ? card.getBoundingClientRect().width + 16 : track!.clientWidth * 0.8;
+    }
+
+    function updateButtons() {
+      if (!track) return;
+      const maxScroll = track.scrollWidth - track.clientWidth - 4;
+      prevBtn!.disabled = track.scrollLeft <= 4;
+      nextBtn!.disabled = track.scrollLeft >= maxScroll;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: cardStep(), behavior: 'smooth' });
+    });
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    updateButtons();
+  }
+
+  function setup() {
+    document.querySelectorAll('[data-carousel]').forEach(setupCarousel);
+  }
+
+  // `astro:page-load` isn't guaranteed to have fired yet by the time this
+  // script runs (e.g. on the very first hard navigation), so bind
+  // immediately too. The `data-bound` guard keeps both paths safe.
+  setup();
+  document.addEventListener('astro:page-load', setup);
+</script>

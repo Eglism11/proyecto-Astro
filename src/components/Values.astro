@@ -1,5 +1,6 @@
 ---
 import ScaleIn from '@astroanimate/core/ScaleIn';
+import CarouselNav from './CarouselNav.astro';
 
 const values = [
   {
@@ -25,19 +26,22 @@ const values = [
 ];
 ---
 
-<div class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-5">
-  {values.map((value, index) => (
-    <ScaleIn
-      enhance
-      initialScale={0.94}
-      delay={index * 70}
-      margin="0px 0px -60px 0px"
-      class="w-[70%] shrink-0 snap-center sm:w-auto sm:shrink"
-    >
-      <div class="flex h-full flex-col rounded-xl border border-tuscany-100 bg-white p-6">
-        <h3 class="font-display text-lg font-semibold text-tuscany-600">{value.name}</h3>
-        <p class="mt-2 text-sm leading-relaxed text-ink-500">{value.description}</p>
-      </div>
-    </ScaleIn>
-  ))}
+<div data-carousel>
+  <div data-carousel-track class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-5">
+    {values.map((value, index) => (
+      <ScaleIn
+        enhance
+        initialScale={0.94}
+        delay={index * 70}
+        margin="0px 0px -60px 0px"
+        class="w-[70%] shrink-0 snap-center sm:w-auto sm:shrink"
+      >
+        <div class="flex h-full flex-col rounded-xl border border-tuscany-100 bg-white p-6">
+          <h3 class="font-display text-lg font-semibold text-tuscany-600">{value.name}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-500">{value.description}</p>
+        </div>
+      </ScaleIn>
+    ))}
+  </div>
+  <CarouselNav />
 </div>
