@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import Faqs1 from '../components/blocks/faqs-1.astro';
 import { site } from '../lib/site';
 
 const schema = {
@@ -9,12 +10,64 @@ const schema = {
   name: `Contacto y PQRS | ${site.name}`,
   url: `${site.url}/contacto-y-pqrs/`,
 };
+
+const faqs = [
+  {
+    id: 'primera-consulta',
+    question: '¿La primera consulta tiene algún costo?',
+    answer:
+      'La primera consulta es gratuita. Nos cuentas tu caso, evaluamos si tenemos las bases para ayudarte y te explicamos con claridad los siguientes pasos y honorarios antes de iniciar cualquier proceso.',
+  },
+  {
+    id: 'atienden-fuera-rionegro',
+    question: '¿Atienden casos fuera de Rionegro y el oriente antioqueño?',
+    answer:
+      'Sí. Nuestra sede está en Rionegro, Antioquia, pero atendemos procesos en toda Colombia mediante asesoría virtual, apoderados en otras ciudades cuando el trámite lo requiere y acompañamiento remoto durante todo el proceso.',
+  },
+  {
+    id: 'urgencias-penal',
+    question: '¿Qué hago si tengo una urgencia en derecho penal (una captura, por ejemplo)?',
+    answer:
+      'Escríbenos por WhatsApp de inmediato: tenemos atención 24/7 para urgencias en derecho penal. Un abogado se comunicará contigo para orientarte sobre los primeros pasos mientras coordinamos la representación.',
+  },
+  {
+    id: 'como-elegir-abogado',
+    question: '¿Cómo sé qué abogado del equipo llevará mi caso?',
+    answer:
+      'Contamos con 11 abogados especialistas, no generalistas, en 18 áreas del derecho. Según la naturaleza de tu caso te asignamos a quien tenga la experiencia específica en esa área, y podrás conocer su perfil y trayectoria antes de continuar.',
+  },
+  {
+    id: 'que-es-pqrs-faq',
+    question: '¿Qué es una PQRS y cómo la radico?',
+    answer:
+      'PQRS son las peticiones, quejas, reclamos o sugerencias que puedes hacernos sobre nuestro servicio. Puedes radicarla con el formulario de esta página, por correo o por WhatsApp, y te confirmamos su recepción con un plazo de respuesta.',
+  },
+  {
+    id: 'seguimiento-caso',
+    question: '¿Cómo hago seguimiento al estado de mi caso?',
+    answer:
+      'Como cliente tienes acceso a nuestra plataforma en línea, donde puedes revisar el avance de tu proceso, documentos y próximas actuaciones, además del contacto directo con tu abogado asignado.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <Layout
   title="Contacto y PQRS | Lawyer Company Abogados"
   description="Escríbenos, agenda tu cita o radica una PQRS (petición, queja, reclamo o sugerencia). Teléfono, WhatsApp, correo y oficina en Rionegro, Antioquia."
-  schema={schema}
+  schema={[schema, faqSchema]}
 >
   <PageHeader
     eyebrow="Contacto"
@@ -172,6 +225,20 @@ const schema = {
       </form>
     </div>
   </section>
+
+  <Faqs1
+    title="Preguntas frecuentes"
+    description="Resolvemos las dudas más comunes antes de que te escribamos. Si tienes otra pregunta, contáctanos por WhatsApp."
+    faqs={faqs}
+    buttons={[
+      {
+        label: 'Escríbenos por WhatsApp',
+        href: `${site.whatsapp}?text=${encodeURIComponent('Hola, tengo una pregunta antes de agendar una cita.')}`,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      },
+    ]}
+  />
 </Layout>
 
 <script define:vars={{ email: site.email }}>
