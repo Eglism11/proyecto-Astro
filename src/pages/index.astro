@@ -6,12 +6,52 @@ import PracticeAreasGrid from '../components/PracticeAreasGrid.astro';
 import TeamGrid from '../components/TeamGrid.astro';
 import Values from '../components/Values.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import Faqs1 from '../components/blocks/faqs-1.astro';
 import { practiceAreas, team, site } from '../lib/site';
 import FadeInText from '@astroanimate/core/FadeInText';
 import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
 
 const featuredAreas = practiceAreas.slice(0, 6);
 const featuredTeam = team.slice(0, 4);
+
+const faqs = [
+  {
+    id: 'primera-consulta',
+    question: '¿La primera consulta tiene algún costo?',
+    answer:
+      'La primera consulta es gratuita. Nos cuentas tu caso, evaluamos si tenemos las bases para ayudarte y te explicamos con claridad los siguientes pasos y honorarios antes de iniciar cualquier proceso.',
+  },
+  {
+    id: 'atienden-fuera-rionegro',
+    question: '¿Atienden casos fuera de Rionegro y el oriente antioqueño?',
+    answer:
+      'Sí. Nuestra sede está en Rionegro, Antioquia, pero atendemos procesos en toda Colombia mediante asesoría virtual, apoderados en otras ciudades cuando el trámite lo requiere y acompañamiento remoto durante todo el proceso.',
+  },
+  {
+    id: 'urgencias-penal',
+    question: '¿Qué hago si tengo una urgencia en derecho penal (una captura, por ejemplo)?',
+    answer:
+      'Escríbenos por WhatsApp de inmediato: tenemos atención 24/7 para urgencias en derecho penal. Un abogado se comunicará contigo para orientarte sobre los primeros pasos mientras coordinamos la representación.',
+  },
+  {
+    id: 'como-elegir-abogado',
+    question: '¿Cómo sé qué abogado del equipo llevará mi caso?',
+    answer:
+      'Contamos con 11 abogados especialistas, no generalistas, en 18 áreas del derecho. Según la naturaleza de tu caso te asignamos a quien tenga la experiencia específica en esa área, y podrás conocer su perfil y trayectoria antes de continuar.',
+  },
+  {
+    id: 'que-es-pqrs',
+    question: '¿Qué es una PQRS y cómo la radico?',
+    answer:
+      'PQRS son las peticiones, quejas, reclamos o sugerencias que puedes hacernos sobre nuestro servicio. Puedes radicarla desde la página de Contacto y PQRS, por correo o por WhatsApp, y te confirmamos su recepción con un plazo de respuesta.',
+  },
+  {
+    id: 'seguimiento-caso',
+    question: '¿Cómo hago seguimiento al estado de mi caso?',
+    answer:
+      'Como cliente tienes acceso a nuestra plataforma en línea, donde puedes revisar el avance de tu proceso, documentos y próximas actuaciones, además del contacto directo con tu abogado asignado.',
+  },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -32,12 +72,25 @@ const schema = {
   priceRange: '$$',
   sameAs: [site.social.facebook, site.social.linkedin, site.social.instagram],
 };
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <Layout
   title="Abogados en Rionegro y Colombia | Lawyer Company"
   description="Asesoría jurídica integral y litigio estratégico en derecho penal, laboral, civil, administrativo y empresarial. Más de 15 años de experiencia en Rionegro, Antioquia."
-  schema={schema}
+  schema={[schema, faqSchema]}
 >
   <Hero />
 
@@ -90,6 +143,20 @@ const schema = {
       <ArrowCTAButton as="a" href="/nosotros/" label="Conoce a todo el equipo" class="!text-tuscany-600 justify-center" />
     </div>
   </section>
+
+  <Faqs1
+    title="Preguntas frecuentes"
+    description="Resolvemos las dudas más comunes antes de que agendes tu cita. Si tienes otra pregunta, escríbenos por WhatsApp."
+    faqs={faqs}
+    buttons={[
+      {
+        label: 'Escríbenos por WhatsApp',
+        href: `${site.whatsapp}?text=${encodeURIComponent('Hola, tengo una pregunta antes de agendar una cita.')}`,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      },
+    ]}
+  />
 
   <CtaBanner />
 </Layout>
