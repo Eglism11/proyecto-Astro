@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { team, site, type TeamMember } from '../lib/site';
 import ScaleIn from '@astroanimate/core/ScaleIn';
+import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
 
 interface Props {
   members?: TeamMember[];
@@ -48,8 +49,8 @@ function splitName(name: string) {
     const dialogId = `team-${slugify(member.name)}`;
     return (
       <ScaleIn enhance initialScale={0.94} delay={(index % 6) * 70} margin="0px 0px -60px 0px">
-        <article class="group overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm">
-          <div class="relative overflow-hidden">
+        <article class="group flex h-full flex-col overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm">
+          <div class="overflow-hidden">
             {photo ? (
               <Image
                 src={photo}
@@ -63,19 +64,14 @@ function splitName(name: string) {
                 <span class="font-display text-4xl font-semibold text-tuscany-500">{initials(member.name)}</span>
               </div>
             )}
-            <button
-              type="button"
-              data-team-trigger={dialogId}
-              class="absolute inset-x-3 bottom-3 flex items-center justify-center gap-1.5 rounded-md bg-ink-900/90 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm transition-all duration-300 sm:translate-y-2 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 sm:focus-visible:translate-y-0 sm:focus-visible:opacity-100"
-            >
-              Conócelo
-              <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
-            </button>
           </div>
-          <div class="p-5">
+          <div class="flex flex-1 flex-col p-5">
             <h3 class="font-display text-lg font-semibold text-ink-900">{member.name}</h3>
             <p class="mt-0.5 text-sm font-medium text-tuscany-600">{member.role}</p>
-            <p class="mt-2 text-sm leading-relaxed text-ink-500">{member.bio}</p>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-500">{member.bio}</p>
+            <div data-team-trigger={dialogId} class="mt-4">
+              <ArrowCTAButton as="button" label="Conócelo" class="!text-tuscany-600" />
+            </div>
           </div>
         </article>
 
@@ -121,7 +117,7 @@ function splitName(name: string) {
                 </div>
 
                 <div class="mt-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-wider text-ink-400">
-                  <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-tuscany-600">
+                  <a href={member.linkedin ?? site.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-tuscany-600">
                     LinkedIn
                   </a>
                   <span aria-hidden="true">|</span>

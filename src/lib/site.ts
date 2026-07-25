@@ -34,6 +34,7 @@ export type TeamMember = {
   specialty: string;
   bio: string;
   image?: string;
+  linkedin?: string;
 };
 
 export const team: TeamMember[] = [
@@ -43,6 +44,7 @@ export const team: TeamMember[] = [
     specialty: 'Derecho médico y laboral',
     bio: '18 años de trayectoria en litigios y docencia universitaria en derecho médico y laboral.',
     image: 'cristian-sanchez',
+    linkedin: 'https://www.linkedin.com/in/cristian-andres-sanchez-gil-5767622bb/',
   },
   {
     name: 'Patricia López Betancur',
@@ -57,18 +59,22 @@ export const team: TeamMember[] = [
     specialty: 'Derecho administrativo',
     bio: '8 años asesorando entidades públicas en derecho administrativo.',
     image: 'maria-antonieta-alvarez',
+    linkedin: 'https://www.linkedin.com/in/maria-antonieta-alvarez-318269123/',
   },
   {
     name: 'Paola Naranjo Acevedo',
     role: 'Abogada',
     specialty: 'Contratos, familia y administración pública',
     bio: 'Especializada en contratos, derecho de familia y administración pública.',
+    image: 'paola-naranjo',
+    linkedin: 'https://www.linkedin.com/in/paola-naranjo-acevedo-9b08722b7/',
   },
   {
     name: 'Jorge Gutiérrez',
     role: 'Abogado Especialista',
     specialty: 'Derecho penal y procesal penal',
     bio: 'Litigante con amplia experiencia en estrategias defensivas en materia penal.',
+    image: 'jorge-gutierrez',
   },
 ];
 
