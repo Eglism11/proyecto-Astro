@@ -8,9 +8,14 @@ import CarouselNav from './CarouselNav.astro';
 interface Props {
   members?: TeamMember[];
   carousel?: boolean;
+  /** Index (0-based) from which members only render at the tablet
+   * breakpoint (sm–lg): hidden on mobile, visible on tablet, hidden
+   * again on desktop. Used to fill a 2-column tablet row without
+   * padding out the mobile carousel or the desktop 3-column grid. */
+  tabletOnlyFrom?: number;
 }
 
-const { members = team, carousel = false } = Astro.props;
+const { members = team, carousel = false, tabletOnlyFrom } = Astro.props;
 
 const images = import.meta.glob<import('astro').ImageMetadata>(
   '../assets/images/team/*.jpg',
@@ -57,13 +62,16 @@ function splitName(name: string) {
   {members.map((member, index) => {
     const photo = getImage(member.image);
     const dialogId = `team-${slugify(member.name)}`;
+    const tabletOnly = tabletOnlyFrom !== undefined && index >= tabletOnlyFrom;
     return (
       <ScaleIn
         enhance
         initialScale={0.94}
         delay={(index % 6) * 70}
         margin="0px 0px -60px 0px"
-        class={carousel ? 'w-[78%] shrink-0 snap-center sm:w-auto sm:shrink' : undefined}
+        class={[carousel && 'w-[78%] shrink-0 snap-center sm:w-auto sm:shrink', tabletOnly && 'hidden sm:block lg:hidden']
+          .filter(Boolean)
+          .join(' ') || undefined}
       >
         <article class="group flex h-full flex-col overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm">
           <div class="overflow-hidden">
