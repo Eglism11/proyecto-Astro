@@ -6,9 +6,10 @@ import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
 
 interface Props {
   members?: TeamMember[];
+  carousel?: boolean;
 }
 
-const { members = team } = Astro.props;
+const { members = team, carousel = false } = Astro.props;
 
 const images = import.meta.glob<import('astro').ImageMetadata>(
   '../assets/images/team/*.jpg',
@@ -43,12 +44,24 @@ function splitName(name: string) {
 }
 ---
 
-<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<div
+  class={
+    carousel
+      ? '-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3'
+      : 'grid gap-6 sm:grid-cols-2 lg:grid-cols-3'
+  }
+>
   {members.map((member, index) => {
     const photo = getImage(member.image);
     const dialogId = `team-${slugify(member.name)}`;
     return (
-      <ScaleIn enhance initialScale={0.94} delay={(index % 6) * 70} margin="0px 0px -60px 0px">
+      <ScaleIn
+        enhance
+        initialScale={0.94}
+        delay={(index % 6) * 70}
+        margin="0px 0px -60px 0px"
+        class={carousel ? 'w-[78%] shrink-0 snap-center sm:w-auto sm:shrink' : undefined}
+      >
         <article class="group flex h-full flex-col overflow-hidden rounded-xl border border-tuscany-100 bg-white shadow-sm">
           <div class="overflow-hidden">
             {photo ? (
