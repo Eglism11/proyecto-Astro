@@ -10,8 +10,10 @@ interface Props {
 const { href, variant = 'primary', class: className = '', target, rel } = Astro.props;
 
 const variants = {
+  // tuscany-500 con texto blanco falla el contraste mínimo de
+  // accesibilidad (3.87:1, se necesita 4.5:1) — tuscany-600 pasa (5.19:1).
   primary:
-    'bg-tuscany-500 text-white hover:bg-tuscany-400 shadow-sm',
+    'bg-tuscany-600 text-white hover:bg-tuscany-700 shadow-sm',
   secondary:
     'bg-white text-tuscany-700 hover:bg-tuscany-50 border border-tuscany-200',
   'outline-light':
