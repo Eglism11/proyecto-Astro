@@ -2,7 +2,6 @@
 import { practiceAreas, site } from '../lib/site';
 import ScaleIn from '@astroanimate/core/ScaleIn';
 import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
-import Button from './Button.astro';
 import CarouselNav from './CarouselNav.astro';
 import { Icon } from './ui/icon';
 
@@ -47,19 +46,22 @@ const { areas = practiceAreas, showLinkToAll = false, compact = false, carousel 
           {compact ? area.summary : area.description}
         </p>
         {compact ? (
-          <div class="mt-4 flex flex-col gap-2">
-            <Button href={`/asesoria-juridica-integral/#${area.slug}`} variant="primary" class="w-full text-center">
+          <div class="mt-4 flex flex-col items-center gap-1.5 text-sm font-semibold">
+            <a
+              href={`/asesoria-juridica-integral/#${area.slug}`}
+              class="inline-flex items-center gap-1.5 text-tuscany-600 hover:text-tuscany-700"
+            >
               Ver más
-            </Button>
-            <Button
+              <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
+            </a>
+            <a
               href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              variant="secondary"
-              class="w-full text-center"
+              class="text-ink-600 hover:text-tuscany-600"
             >
-              Asesórate
-            </Button>
+              Asesórate con expertos
+            </a>
           </div>
         ) : (
           <a
