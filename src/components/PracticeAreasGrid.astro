@@ -40,7 +40,7 @@ const { areas = practiceAreas, showLinkToAll = false, compact = false, carousel 
           {compact ? area.summary : area.description}
         </p>
         {compact ? (
-          <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-semibold">
+          <div class="mt-4 flex flex-col items-start gap-1.5 text-sm font-semibold sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-1">
             <a
               href={`/asesoria-juridica-integral/#${area.slug}`}
               class="inline-flex items-center gap-1.5 text-tuscany-600 hover:text-tuscany-700"
@@ -48,7 +48,7 @@ const { areas = practiceAreas, showLinkToAll = false, compact = false, carousel 
               Ver más
               <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
             </a>
-            <span aria-hidden="true" class="text-ink-300">|</span>
+            <span aria-hidden="true" class="hidden text-ink-300 sm:inline">|</span>
             <a
               href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`}
               target="_blank"
