@@ -4,6 +4,7 @@ import ScaleIn from '@astroanimate/core/ScaleIn';
 import ArrowCTAButton from '@astroanimate/core/ArrowCTAButton';
 import Button from './Button.astro';
 import CarouselNav from './CarouselNav.astro';
+import { Icon } from './ui/icon';
 
 interface Props {
   areas?: typeof practiceAreas;
@@ -36,25 +37,19 @@ const { areas = practiceAreas, showLinkToAll = false, compact = false, carousel 
         id={compact ? undefined : area.slug}
         class="scroll-mt-28 flex h-full flex-col rounded-xl border border-tuscany-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
       >
+        {compact && (
+          <span class="mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-ink-900 text-white">
+            <Icon name={area.icon} class="h-6 w-6" aria-hidden="true" />
+          </span>
+        )}
         <h3 class="font-display text-lg font-semibold text-ink-900">{area.title}</h3>
         <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
           {compact ? area.summary : area.description}
         </p>
         {compact ? (
-          <div class="mt-4 flex flex-col gap-2">
-            <Button href={`/asesoria-juridica-integral/#${area.slug}`} variant="primary" class="w-full text-center">
-              Ver más
-            </Button>
-            <Button
-              href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="secondary"
-              class="w-full text-center"
-            >
-              Asesórate
-            </Button>
-          </div>
+          <Button href={`/asesoria-juridica-integral/#${area.slug}`} variant="primary" class="mt-4 w-full text-center">
+            Ver más
+          </Button>
         ) : (
           <a
             href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`}
