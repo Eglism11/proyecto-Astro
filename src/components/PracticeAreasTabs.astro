@@ -2,6 +2,7 @@
 import { practiceAreas, site, type PracticeArea } from '../lib/site';
 import { Icon } from './ui/icon';
 import ScaleIn from '@astroanimate/core/ScaleIn';
+import Button from './Button.astro';
 import CarouselNav from './CarouselNav.astro';
 
 const categories = practiceAreas.filter((area) => area.isCategory);
@@ -99,15 +100,9 @@ function whatsappHref(area: PracticeArea) {
           {area.description}
         </p>
 
-        <a
-          href={whatsappHref(area)}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-tuscany-600 hover:text-tuscany-700"
-        >
+        <Button href={whatsappHref(area)} target="_blank" rel="noopener noreferrer" variant="primary" class="mt-6">
           Asesórate con expertos
-          <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
-        </a>
+        </Button>
       </div>
     </dialog>
   ))}
