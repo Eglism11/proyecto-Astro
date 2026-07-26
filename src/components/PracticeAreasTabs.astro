@@ -43,7 +43,7 @@ function whatsappHref(area: PracticeArea) {
         <div class="mt-8" data-carousel>
           <div
             data-carousel-track
-            class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4"
+            class="-mx-4 flex snap-x snap-mandatory items-start gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4"
           >
             {items.map((area, itemIndex) => (
               <ScaleIn
@@ -56,7 +56,7 @@ function whatsappHref(area: PracticeArea) {
                 <button
                   type="button"
                   data-area-trigger={dialogId(area.slug)}
-                  class="flex h-full w-full flex-col items-center gap-3 rounded-xl border border-tuscany-100 bg-tuscany-50/60 p-6 text-center transition-all duration-150 hover:-translate-y-0.5 hover:border-tuscany-300 hover:bg-white hover:shadow-md"
+                  class="flex w-full flex-col items-center gap-3 rounded-xl border border-tuscany-100 bg-tuscany-50/60 p-6 text-center transition-all duration-150 hover:-translate-y-0.5 hover:border-tuscany-300 hover:bg-white hover:shadow-md"
                 >
                   <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-ink-900 text-white">
                     <Icon name={area.icon} class="h-7 w-7" aria-hidden="true" />
