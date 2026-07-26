@@ -39,7 +39,15 @@ const { areas = practiceAreas, showLinkToAll = false, compact = false, carousel 
         <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
           {compact ? area.summary : area.description}
         </p>
-        {!compact && (
+        {compact ? (
+          <a
+            href={`/asesoria-juridica-integral/#${area.slug}`}
+            class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-tuscany-600 hover:text-tuscany-700"
+          >
+            Ver más
+            <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
+          </a>
+        ) : (
           <a
             href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`}
             target="_blank"

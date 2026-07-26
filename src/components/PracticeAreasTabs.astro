@@ -191,9 +191,38 @@ function whatsappHref(area: PracticeArea) {
     });
   }
 
+  // Deep-link support: a card elsewhere on the site (e.g. the compact
+  // preview on Home) links to /asesoria-juridica-integral/#<slug>. On
+  // arrival, switch to that area's category tab and open its dialog.
+  function openFromHash() {
+    const slug = window.location.hash.slice(1);
+    if (!slug) return;
+
+    const trigger = document.querySelector<HTMLElement>(`[data-area-trigger="area-${slug}"]`);
+    const dialog = document.getElementById(`area-${slug}`);
+    if (!trigger || !(dialog instanceof HTMLDialogElement)) return;
+
+    const panel = trigger.closest<HTMLElement>('[data-tab-panel]');
+    const category = panel?.getAttribute('data-tab-panel');
+    if (category) {
+      document.querySelectorAll('[data-tab-btn]').forEach((b) => {
+        b.setAttribute('aria-selected', b.getAttribute('data-tab-btn') === category ? 'true' : 'false');
+      });
+      document.querySelectorAll('[data-tab-panel]').forEach((p) => {
+        p.classList.toggle('hidden', p.getAttribute('data-tab-panel') !== category);
+      });
+    }
+
+    if (!dialog.open) dialog.showModal();
+  }
+
   // `astro:page-load` isn't guaranteed to have fired yet by the time this
   // script runs (e.g. on the very first hard navigation), so bind
   // immediately too. The `data-bound` guards above keep both paths safe.
   setup();
-  document.addEventListener('astro:page-load', setup);
+  openFromHash();
+  document.addEventListener('astro:page-load', () => {
+    setup();
+    openFromHash();
+  });
 </script>
