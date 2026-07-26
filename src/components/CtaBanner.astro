@@ -18,16 +18,17 @@ const {
   <FadeInText as="div" enhance class="mx-auto max-w-5xl px-4 py-16 text-center md:px-8">
     <h2 class="font-display text-3xl font-semibold text-white sm:text-4xl">{title}</h2>
     <p class="mx-auto mt-4 max-w-xl text-ink-200">{description}</p>
-    <div class="mt-8 flex flex-wrap justify-center gap-4">
+    <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
       <Button
         href={`${site.whatsapp}?text=${encodeURIComponent('Hola, quiero asesoría jurídica.')}`}
         target="_blank"
         rel="noopener noreferrer"
         variant="primary"
+        class="w-full sm:w-auto"
       >
         Asesórate con expertos
       </Button>
-      <Button href="/contacto-y-pqrs/" variant="outline-light">
+      <Button href="/contacto-y-pqrs/" variant="outline-light" class="w-full sm:w-auto">
         Ver formulario de contacto
       </Button>
     </div>
