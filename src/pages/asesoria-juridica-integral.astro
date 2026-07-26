@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import PracticeAreasTabs from '../components/PracticeAreasTabs.astro';
+import ClientLogos from '../components/ClientLogos.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { practiceAreas, site } from '../lib/site';
 
@@ -46,6 +47,8 @@ const schema = {
   <section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
     <PracticeAreasTabs />
   </section>
+
+  <ClientLogos />
 
   <CtaBanner
     title="¿No sabes qué área necesitas?"
