@@ -216,8 +216,21 @@ const faqSchema = {
   </section>
 
   <section class="mx-auto max-w-6xl px-4 pb-16 md:px-8 md:pb-20">
-    <h2 class="font-display text-2xl font-semibold text-ink-900">Nuestra oficina</h2>
-    <p class="mt-1 text-sm text-ink-500">{site.address}</p>
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h2 class="font-display text-2xl font-semibold text-ink-900">Nuestra oficina</h2>
+        <p class="mt-1 text-sm text-ink-500">{site.address}</p>
+      </div>
+      <a
+        href={site.mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 text-sm font-semibold text-tuscany-600 hover:text-tuscany-700"
+      >
+        Abrir en Google Maps
+        <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
     <div class="mt-6 overflow-hidden rounded-2xl border border-tuscany-100 shadow-sm">
       <iframe
         src={`https://www.google.com/maps?q=${encodeURIComponent(site.address)}&output=embed`}

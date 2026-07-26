@@ -9,6 +9,10 @@ export const site = {
   email: 'gerencia@lawyer-company.com',
   address: 'Llano Grande, Ciudadela Complex, Edificio 60-61, oficina 201, Rionegro, Antioquia',
   addressShort: 'Rionegro, Antioquia, Colombia',
+  // Enlace directo al pin verificado del negocio en Google Maps (con
+  // ftid), no una búsqueda genérica por dirección.
+  mapsUrl:
+    'https://www.google.com/maps?q=Lawyer+-+Company+Abogados,+ciudadela+complex+edificio+60+-61,+oficina+201,+Rionegro,+Antioquia&ftid=0x8e46835bb466cb9f:0x3d6b01b160cddcc0',
   hoursNote: 'Atención 24/7 para urgencias en derecho penal',
   bankAccount: '41200039490',
   consultationFee: '$180.000 COP',
