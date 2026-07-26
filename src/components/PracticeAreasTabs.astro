@@ -56,7 +56,7 @@ function whatsappHref(area: PracticeArea) {
                 <button
                   type="button"
                   data-area-trigger={dialogId(area.slug)}
-                  class="flex h-full w-full flex-col items-center gap-3 rounded-xl border border-tuscany-100 bg-tuscany-50/60 p-6 text-center transition-colors hover:border-tuscany-300 hover:bg-white"
+                  class="flex h-full w-full flex-col items-center gap-3 rounded-xl border border-tuscany-100 bg-tuscany-50/60 p-6 text-center transition-all duration-150 hover:-translate-y-0.5 hover:border-tuscany-300 hover:bg-white hover:shadow-md"
                 >
                   <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-ink-900 text-white">
                     <Icon name={area.icon} class="h-7 w-7" aria-hidden="true" />
@@ -84,7 +84,7 @@ function whatsappHref(area: PracticeArea) {
           type="button"
           data-area-close
           aria-label="Cerrar"
-          class="absolute right-4 top-4 z-10 rounded-full bg-tuscany-50 p-1.5 text-ink-600 shadow-sm transition-colors hover:bg-tuscany-100 hover:text-ink-900"
+          class="absolute right-4 top-4 z-10 rounded-full bg-tuscany-50 p-1.5 text-ink-600 shadow-sm transition-all duration-150 hover:scale-110 hover:bg-tuscany-100 hover:text-ink-900 active:scale-95"
         >
           <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
         </button>
