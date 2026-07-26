@@ -47,9 +47,20 @@ const { areas = practiceAreas, showLinkToAll = false, compact = false, carousel 
           {compact ? area.summary : area.description}
         </p>
         {compact ? (
-          <Button href={`/asesoria-juridica-integral/#${area.slug}`} variant="primary" class="mt-4 w-full text-center">
-            Ver más
-          </Button>
+          <div class="mt-4 flex flex-col gap-2">
+            <Button href={`/asesoria-juridica-integral/#${area.slug}`} variant="primary" class="w-full text-center">
+              Ver más
+            </Button>
+            <Button
+              href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
+              class="w-full text-center"
+            >
+              Asesórate
+            </Button>
+          </div>
         ) : (
           <a
             href={`${site.whatsapp}?text=${encodeURIComponent(`Hola, quiero asesoría en ${area.title}.`)}`}
